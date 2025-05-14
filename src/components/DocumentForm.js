@@ -25,7 +25,7 @@ const DocumentForm = ({ onSubmit, initialValues = {}, isEditing }) => {
 
   return (
     <Form layout="vertical" onFinish={onFinish} initialValues={initialValues}>
-      <Form.Item name="title" label="Tiêu đề" rules={[{ required: true }]}>
+      <Form.Item name="title" label="Tiêu đề 1" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
       <Form.Item name="content" label="Nội dung" rules={[{ required: true }]}>
