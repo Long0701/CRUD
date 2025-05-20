@@ -1,19 +1,15 @@
 // src/pages/DocumentsPage.js
-import React, { useEffect, useState } from 'react';
-import { Divider, message, Typography } from 'antd';
+import { useEffect, useState } from 'react';
+import { message } from 'antd';
 import DocumentList from '../components/DocumentList';
 import {
   getAllDocuments,
   deleteDocument,
-  updateDocument,
 } from '../db';
 import { useNavigate } from 'react-router-dom';
 
-const { Title } = Typography;
-
 function DocumentsPage() {
   const [documents, setDocuments] = useState([]);
-  const [editingDoc, setEditingDoc] = useState(null);
   const navigate = useNavigate(); // ✅ Thêm hook navigate
 
   const loadDocs = async () => {
