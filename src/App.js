@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import DocumentForm from './components/DocumentForm';
 import DocumentsPage from './pages/DocumentsPage';
 import { addDocument } from './db';
-import MainLayout from './layouts/MainLayout';
+import MainLayout from './layouts/MainLayout.tsx';
 import './App.css';
 
 const { Content } = Layout;
