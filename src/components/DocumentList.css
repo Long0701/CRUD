@@ -1,0 +1,34 @@
+/* src/components/DocumentList.css */
+.document-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s;
+}
+
+.document-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.document-content {
+  
+}
+
+.document-text {
+  flex: 1;
+}
+
+.document-image {
+  flex-shrink: 0;
+}
+.ant-card .ant-card-body {
+    padding: 16px !important;
+}
+
+.ant-image {
+    width: 100% !important;
+}
+
+p, h3 {
+    padding: 0;
+    margin: 0;
+}

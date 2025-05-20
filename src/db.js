@@ -15,7 +15,7 @@ export const initDB = async () => {
 };
 
 export const addDocument = async (doc) => {
-  const db = await initDB(); // ✅ sửa tại đây
+  const db = await initDB();
   const tx = db.transaction(STORE_NAME, "readwrite");
   const store = tx.objectStore(STORE_NAME);
 
@@ -23,13 +23,20 @@ export const addDocument = async (doc) => {
     delete doc.id;
   }
 
+  doc.createdAt = Date.now(); // ✅ Thêm timestamp
+
   await store.add(doc);
   await tx.done;
 };
 
 export const getAllDocuments = async () => {
   const db = await initDB();
-  return await db.getAll(STORE_NAME);
+  const tx = db.transaction(STORE_NAME, "readonly");
+  const store = tx.objectStore(STORE_NAME);
+  const allDocs = await store.getAll();
+
+  // ✅ Sắp xếp mới nhất lên đầu
+  return allDocs.sort((a, b) => b.createdAt - a.createdAt);
 };
 
 export const updateDocument = async (doc) => {
