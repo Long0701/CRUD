@@ -1,0 +1,22 @@
+/* DocumentForm.css */
+
+.document-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.document-form .ant-form-item-label > label {
+  font-weight: 600;
+  color: #444;
+}
+
+.document-form .ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.document-form img {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width: 100%;
+}

@@ -1,67 +1,42 @@
-// src/App.js
-import React, { useEffect, useState } from 'react';
-import { Layout, Typography, Divider, message } from 'antd';
+import React from 'react';
+import { Layout, Typography, Button } from 'antd';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import DocumentForm from './components/DocumentForm';
-import DocumentList from './components/DocumentList';
-import {
-  addDocument,
-  getAllDocuments,
-  deleteDocument,
-  updateDocument,
-} from './db';
+import DocumentsPage from './pages/DocumentsPage';
+import { addDocument } from './db';
+import MainLayout from './layouts/MainLayout';
+import './App.css';
 
-const { Header, Content } = Layout;
-const { Title } = Typography;
+const { Content } = Layout;
 
 function App() {
-  const [documents, setDocuments] = useState([]);
-  const [editingDoc, setEditingDoc] = useState(null);
+  const navigate = useNavigate(); // ✅ Bây giờ sẽ hoạt động vì App nằm trong <Router>
 
-  const loadDocs = async () => {
-    const docs = await getAllDocuments();
-    setDocuments(docs);
+  const handleAdd = async (doc) => {
+    await addDocument(doc);
   };
 
-  useEffect(() => {
-    loadDocs();
-  }, []);
-
-  const handleAddOrUpdate = async (doc) => {
-    if (doc.id) {
-      await updateDocument(doc);
-      message.success('Đã cập nhật văn bản');
-    } else {
-      await addDocument(doc);
-      message.success('Đã thêm mới văn bản');
-    }
-    setEditingDoc(null);
-    await loadDocs();
-  };
-
-  const handleDelete = async (id) => {
-    await deleteDocument(id);
-    message.success('Đã xoá');
-    await loadDocs();
+  const add = () => {
+    navigate('/add');
   };
 
   return (
-    <Layout style={{ minHeight: '100vh', padding: 20 }}>
-      <Header style={{ backgroundColor: '#fff' }}>
-        <Title level={2}>Quản lý Văn bản & Hình ảnh</Title>
-      </Header>
-      <Content>
-      <DocumentForm
-        onSubmit={handleAddOrUpdate}
-        initialValues={editingDoc || {}}
-        isEditing={!!editingDoc}
-      />
-        <Divider />
-        <DocumentList
-          documents={documents}
-          onEdit={(doc) => setEditingDoc(doc)}
-          onDelete={handleDelete}
-        />
-      </Content>
+    <Layout style={{ minHeight: '100vh' }}>
+      <MainLayout>
+        <Content>
+          <div className="title-page">
+            <h2>Quản lý khách sạn </h2>
+            <Button type="primary" onClick={add}>Thêm khách sạn</Button>
+          </div>
+          <Routes>
+            <Route
+              path="/add"
+              element={<DocumentForm onSubmit={handleAdd} initialValues={{}} />}
+            />
+            <Route path="/" element={<DocumentsPage />} />
+          </Routes>
+        </Content>
+      </MainLayout>
     </Layout>
   );
 }
